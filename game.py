@@ -7,13 +7,13 @@ pygame.init()
 
 # Constantes
 WIDTH, HEIGHT = 1200, 600
-DARK_GRAY = (50, 50, 50)
-COIN_COLOR = (255, 215, 0)
-FONT_COLOR = (255, 255, 255)
+BACKGROUND_COLOR = (173, 216, 230)  # Azul claro
+GROUND_COLOR = (50, 50, 50)  # Cinza escuro
+COIN_COLOR = (255, 215, 0)  # Dourado
+FONT_COLOR = (255, 255, 255)  # Branco
 GRAVITY = 1
 GROUND_HEIGHT = 50
-ENEMY_COLOR = (255, 0, 0)
-BULLET_COLOR = (255, 255, 0)
+BULLET_COLOR = (255, 255, 0)  # Amarelo
 
 # Configurações da tela
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -27,8 +27,7 @@ player_image = pygame.transform.scale(player_image, (140, 150))
 enemy_image = pygame.image.load('E.T.png')
 enemy_image = pygame.transform.scale(enemy_image, (160, 180))
 
-# Definir classes do jogo
-
+# Classes do jogo
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -135,7 +134,6 @@ class Enemy(pygame.sprite.Sprite):
 
     def draw(self, surface):
         surface.blit(self.image, self.rect.topleft)
-        pygame.draw.rect(surface, (0, 255, 0), self.collision_rect, 2)
 
 def generate_levels(num_levels):
     levels = []
@@ -256,7 +254,6 @@ def handle_collisions():
             player.lives -= 1
             if player.lives <= 0:
                 game_over = True
-            enemy.take_damage()
 
     for bullet in bullets:
         for enemy in levels[current_level]["enemies"]:
@@ -272,24 +269,28 @@ def handle_collisions():
     for coin in coins_to_remove:
         levels[current_level]["coins"].remove(coin)
 
-def draw_scene():
-    screen.fill((173, 216, 230))  # Cor de fundo azul claro
-    pygame.draw.rect(screen, DARK_GRAY, (0, HEIGHT - GROUND_HEIGHT, WIDTH, GROUND_HEIGHT))
-    player.draw(screen)
-    for platform in levels[current_level]["platforms"]:
-        pygame.draw.rect(screen, (100, 100, 100), platform)
-    for coin in levels[current_level]["coins"]:
-        pygame.draw.circle(screen, COIN_COLOR, coin.center, 10)
-    for enemy in levels[current_level]["enemies"]:
-        enemy.draw(screen)
-    bullets.draw(screen)
-    score_text = font.render(f"Score: {player.score}", True, FONT_COLOR)
-    screen.blit(score_text, (10, 10))
-    pygame.display.flip()
-
 def show_game_over():
     game_over_text = font.render("GAME OVER", True, FONT_COLOR)
     screen.blit(game_over_text, (WIDTH // 2 - game_over_text.get_width() // 2, HEIGHT // 2 - game_over_text.get_height() // 2))
+    pygame.display.flip()
+    pygame.time.wait(3000)
+
+def draw_scene():
+    screen.fill(BACKGROUND_COLOR)
+    pygame.draw.rect(screen, GROUND_COLOR, (0, HEIGHT - GROUND_HEIGHT, WIDTH, GROUND_HEIGHT))
+
+    for platform in levels[current_level]["platforms"]:
+        pygame.draw.rect(screen, (0, 255, 0), platform)
+
+    for coin in levels[current_level]["coins"]:
+        pygame.draw.rect(screen, COIN_COLOR, coin)
+ 
+    for enemy in levels[current_level]["enemies"]:
+        enemy.draw(screen)
+
+    player.draw(screen)
+    bullets.draw(screen)
+
     pygame.display.flip()
 
 if __name__ == "__main__":
