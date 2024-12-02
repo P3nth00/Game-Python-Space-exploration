@@ -1,6 +1,5 @@
 # Game-Python-Space-exploration
-Um jogo meio simples em python, é um projeto da eletiva Exploração espacial 
-
+Um jogo meio simples em python, é um projeto da eletiva Exploração Espacial
 
 # Notas importantes sobre o projeto
 Como esse jogo é o primeiro que estou fazendo então ainda haverá modificações futuras 
