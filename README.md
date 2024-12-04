@@ -10,5 +10,10 @@ Quando fizer download baixe os arquivos .png para funcionar o codigo corretament
 
 Espero que curte o jogo, está bem simples
 
-
 # Exploração espacial © 2024 por está licenciado sob CC BY-NC-ND 4.0
+
+
+
+
+
+Está uma merda fazer esse jogo têm diversos problemas mas não consigo arrumar ele.
